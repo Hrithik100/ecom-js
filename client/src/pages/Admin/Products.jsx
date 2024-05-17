@@ -26,27 +26,37 @@ const Products = () => {
   }, []);
   return (
     <Layout title={"All Products"}>
-      <div className="row">
-        <div className="col-md-3">
-          <AdminMenu />
-        </div>
-        <div className="col-md-9">
-          <h1 className="text-center">All Products list</h1>
-          <div className="grid gridcontainer">
-            {products?.map((p) => (
-              <Link  key={p._id} to={`/dashboard/admin/product/${p.slug}`} className="product-link">
-                <div
-                  className="card m-2"
-                  style={{ width: "18rem" }}
+      <div className=" m-3 p-3">
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-12 lg:col-span-4 bg-white p-4 rounded-lg">
+            <AdminMenu />
+          </div>
+          <div className="col-span-12 lg:col-span-8">
+            <h1 className="text-xl font-semibold">All Products list</h1>
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+              {products?.map((p) => (
+                <Link
+                  key={p._id}
+                  to={`/dashboard/admin/product/${p.slug}`}
+                  className="product-link"
                 >
-                  <img src={`${import.meta.env.VITE_REACT_APP_API}/api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name} />
-                  <div className="card-body">
-                    <h5 className="card-title">{p.name}</h5>
-                    <p className="card-text">{p.description}</p>
+                  <div className="w-full h-full p-4 bg-white border border-gray-200 rounded-md shadow" style={{ width: "18rem" }}>
+                    <img
+                      src={`${
+                        import.meta.env.VITE_REACT_APP_API
+                      }/api/v1/product/product-photo/${p._id}`}
+                      className="h-72 hover:scale-90 transform 
+                      transition duration-500"
+                      alt={p.name}
+                    />
+                    <div className="">
+                      <h5 className="text-xl font-semibold tracking-tight text-gray-900">{p.name}</h5>
+                      <p className="text-lg font-bold text-gray-700">{p.description.substring(0,30)}</p>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

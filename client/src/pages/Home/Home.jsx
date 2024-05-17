@@ -180,7 +180,7 @@ const Home = () => {
                   <p className="text-md  text-gray-500">{p.description.substring(0, 30)}</p>
                   <div className="flex justify-between">
                     <button
-                      className="text-white  bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ms-1"
+                      className="text-white  bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ms-1"
                       onClick={() => navigate(`/product/${p.slug}`)}
                     >
                       More Details
