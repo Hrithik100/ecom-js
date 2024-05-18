@@ -7,8 +7,8 @@ const Categories = () => {
 
   return (
     <Layout title={"All Categories"}>
-      <div className="container mt-16">
-        <div className="flex justify-center items-center gap-2 flex-wrap">
+      <div className=" ">
+        <div className="mt-10  flex justify-center items-center gap-2 flex-wrap">
           {categories?.map((c) => (
             <Link to={`/category/${c.slug}`} className="">
               <div

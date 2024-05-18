@@ -114,7 +114,7 @@ const Header = () => {
         </div>
         {/* linke items */}
         <ul
-          className={`mb-0 bg-blue-200 lg:flex lg:items-center lg:p-0 p-4 absolute lg:static lg:bg-white lg:z-auto z-[-1] left-0 w-full lg:w-auto  transition-all duration-500 ease-in ${
+          className={`mb-0 bg-[#C4DFDF] lg:flex lg:items-center lg:p-0 p-4 absolute lg:static lg:bg-white lg:z-auto z-[-1] left-0 w-full lg:w-auto  transition-all duration-500 ease-in ${
             open ? "top-16" : "top-[-490px]"
           }`}
         >
@@ -189,7 +189,7 @@ const Header = () => {
           )}
           <li className="lg:ml-8 lg:my-0 my-7 ">
             <NavLink className="" to="/cart">
-              <Badge count={cart?.length} showZero offset={[10, -5]}>
+              <Badge count={cart?.length} showZero offset={[4, 0]}>
                 <span className="text-gray-800 hover:text-blue-400 duration-500 text-base font-semibold">
                   Cart
                 </span>

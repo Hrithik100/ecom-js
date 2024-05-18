@@ -125,7 +125,7 @@ const Home = () => {
   };
   return (
     <Layout title={"All Products - Best offers"}>
-      <div className="container px-4 grid grid-cols-12 lg:pt-5  gap-4 ">
+      <div className="container px-4 grid grid-cols-12 lg:pt-5  gap-4 mb-1">
         <div className="mt-4 p-4 col-span-12 bg-white rounded-md lg:col-span-2">
           <h4 className="text-start">Filter By Category</h4>
           <div className="flex gap-2 lg:flex-col flex-wrap mt-3 ">
