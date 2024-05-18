@@ -198,7 +198,7 @@ const AdminOrders = () => {
                             align="center"
                             className=" !bg-gray-500 !text-white !font-semibold !text-base"
                           >
-                            Quantity
+                            Price
                           </TableCell>
                         </TableRow>
                       </TableHead>
@@ -253,7 +253,7 @@ const AdminOrders = () => {
                                 {or?.payment.success ? "Success" : "Failed"}
                               </TableCell>
                               <TableCell align="center" className="tableCell">
-                                {or?.products?.length}
+                              {`₹${or?.payment.transaction.amount.toLocaleString("en-IN")}`}
                               </TableCell>
                             </TableRow>
                           ))}

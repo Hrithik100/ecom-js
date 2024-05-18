@@ -16,12 +16,21 @@ const CartPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+
+  useEffect(() => {
+    const updatedCart = cart.map(item => ({
+      ...item,
+      cartQuantity: item.cartQuantity || 1 // Initialize cartQuantity if not present
+    }));
+    setCart(updatedCart);
+  }, []);
+
   //total price
   const totalPrice = () => {
     try {
       let total = 0;
-      cart?.map((item) => {
-        total = total + item.price;
+      cart?.forEach((item) => {
+        total += item.price * item.cartQuantity; // Using cartQuantity to track cart item quantity
       });
       return total.toLocaleString("en-IN", {
         style: "currency",
@@ -29,6 +38,7 @@ const CartPage = () => {
       });
     } catch (error) {
       console.log(error);
+      return "0"; // Return 0 in case of an error
     }
   };
   //detele item
@@ -39,6 +49,36 @@ const CartPage = () => {
       myCart.splice(index, 1);
       setCart(myCart);
       localStorage.setItem("cart", JSON.stringify(myCart));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const incrementQuantity = (pid) => {
+    try {
+      let myCart = [...cart];
+      let index = myCart.findIndex((item) => item._id === pid);
+      if (myCart[index].cartQuantity < myCart[index].quantity) { // Check against available quantity
+        myCart[index].cartQuantity += 1;
+        setCart(myCart);
+        localStorage.setItem("cart", JSON.stringify(myCart));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const decrementQuantity = (pid) => {
+    try {
+      let myCart = [...cart];
+      let index = myCart.findIndex((item) => item._id === pid);
+      if (myCart[index].cartQuantity > 1) {
+        myCart[index].cartQuantity -= 1;
+        setCart(myCart);
+        localStorage.setItem("cart", JSON.stringify(myCart));
+      } else {
+        removeCartItem(pid);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -83,6 +123,8 @@ const CartPage = () => {
       setLoading(false);
     }
   };
+
+  console.log(cart);
   return (
     <Layout>
       <div className="container">
@@ -134,6 +176,23 @@ const CartPage = () => {
                       </p>
                       <p className="text-base font-semibold text-gray-500">Price : ₹ {p.price}</p>
                     </div>
+                    <div className="flex items-center">
+                        <button
+                          className="px-2 py-1 bg-gray-200 text-gray-800 font-bold rounded-l"
+                          onClick={() => decrementQuantity(p._id)}
+                          // disabled={p.cartQuantity <= 1}
+                        >
+                          -
+                        </button>
+                        <span className="px-4 py-1 bg-gray-100 text-gray-800 font-semibold">{p.cartQuantity}</span>
+                        <button
+                          className="px-2 py-1 bg-gray-200 text-gray-800 font-bold rounded-r disabled:cursor-not-allowed"
+                          onClick={() => incrementQuantity(p._id)}
+                          disabled={p.cartQuantity >= p.quantity} // Check against available quantity
+                        >
+                          +
+                        </button>
+                      </div>
                   </div>
                   <div className=" pl-3">
                     <button

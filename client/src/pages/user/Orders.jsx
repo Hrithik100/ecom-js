@@ -4,7 +4,16 @@ import UserMenu from "../../components/Layout/UserMenu";
 import axios from "axios";
 import { useAuth } from "../../context/Auth";
 import moment from "moment";
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+} from "@mui/material";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -28,7 +37,6 @@ const Orders = () => {
     if (auth?.token) getOrders();
   }, [auth?.token]);
 
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -37,6 +45,8 @@ const Orders = () => {
     setRowsPerPage(event.target.value);
     setPage(0);
   };
+
+  console.log(orders);
   return (
     <Layout title={"User Orders - Ecommerce app"}>
       <div className=" p-3 m-3">
@@ -155,7 +165,7 @@ const Orders = () => {
                             align="center"
                             className=" !bg-gray-500 !text-white !font-semibold !text-base"
                           >
-                            Quantity
+                            Price
                           </TableCell>
                         </TableRow>
                       </TableHead>
@@ -183,13 +193,19 @@ const Orders = () => {
                                 {i + 1}
                               </TableCell>
                               <TableCell align="center" className="tableCell">
-                              {or?.status}
+                                {or?.status}
                               </TableCell>
                               <TableCell align="center" className="tableCell">
                                 {or?.buyer?.name}
                               </TableCell>
                               <TableCell align="center" className="tableCell">
-                                {or?.products?.map((p) => p.name)}
+                                {or?.products?.map((p, index) => (
+                                  <span>
+                                    {" "}
+                                    {p.name}{" "}
+                                    {index !== or.products.length - 1 && ", "}
+                                  </span>
+                                ))}
                               </TableCell>
                               <TableCell align="center" className="tableCell">
                                 {moment(or?.createdAt).fromNow()}
@@ -198,7 +214,8 @@ const Orders = () => {
                                 {or?.payment.success ? "Success" : "Failed"}
                               </TableCell>
                               <TableCell align="center" className="tableCell">
-                                {or?.products?.length}
+                                {/* {or?.products?.length} */}
+                                {`₹${or?.payment.transaction.amount.toLocaleString("en-IN")}`}
                               </TableCell>
                             </TableRow>
                           ))}

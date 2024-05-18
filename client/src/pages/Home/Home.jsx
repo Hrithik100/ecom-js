@@ -119,6 +119,10 @@ const Home = () => {
       console.log(error);
     }
   };
+
+  const isInCart = (product) => {
+    return cart.some(item => item._id === product._id);
+  };
   return (
     <Layout title={"All Products - Best offers"}>
       <div className="container px-4 grid grid-cols-12 lg:pt-5  gap-4 ">
@@ -185,7 +189,7 @@ const Home = () => {
                     >
                       More Details
                     </button>
-                    <button
+                    {/* <button
                       className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ms-1"
                       onClick={() => {
                         setCart([...cart, p]);
@@ -194,6 +198,23 @@ const Home = () => {
                           JSON.stringify([...cart, p])
                         );
                         toast.success("Item added to cart");
+                      }}
+                    >
+                      Add to Cart
+                    </button> */}
+                    <button
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ms-1"
+                      onClick={() => {
+                        if (!isInCart(p)) {
+                          setCart([...cart, p]);
+                          localStorage.setItem(
+                            "cart",
+                            JSON.stringify([...cart, p])
+                          );
+                          toast.success("Item added to cart");
+                        } else {
+                          toast.error("Item already in cart");
+                        }
                       }}
                     >
                       Add to Cart
