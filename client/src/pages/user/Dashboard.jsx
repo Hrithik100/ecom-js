@@ -7,16 +7,16 @@ const Dashboard = () => {
   const [auth, setAuth] = useAuth()
   return (
     <Layout title={"User Dashboard - Ecommerce App"}>
-      <div className="container-fluid m-3 p-3">
-        <div className="row">
-          <div className="col-md-3">
+      <div className=" m-3 p-3">
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-12 lg:col-span-4 bg-white p-4 rounded-lg">
             <UserMenu/>
           </div>
-          <div className="col-md-9">
-            <div className="card w-75 p-3">
-              <h3>User Name : {auth?.user?.name}</h3>
-              <h3>User Email : {auth?.user?.email}</h3>
-              <h3>User Address : {auth?.user?.address}</h3>
+          <div className="col-span-12 lg:col-span-8">
+            <div className="">
+              <h3 className="text-lg font-semibold">User Name : {auth?.user?.name}</h3>
+              <h3 className="text-lg font-semibold">User Email : {auth?.user?.email}</h3>
+              <h3 className="text-lg font-semibold">User Address : {auth?.user?.address}</h3>
             </div>
           </div>
         </div>

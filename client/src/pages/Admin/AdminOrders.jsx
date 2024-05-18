@@ -6,6 +6,13 @@ import AdminMenu from "../../components/Layout/AdminMenu";
 import moment from "moment";
 import { useAuth } from "../../context/Auth";
 import { Select } from "antd";
+import { Paper, Table, TableContainer } from "@mui/material";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
 const { Option } = Select;
 
 const AdminOrders = () => {
@@ -19,6 +26,10 @@ const AdminOrders = () => {
   const [changeStatus, setChangeStatus] = useState("");
   const [orders, setOrders] = useState([]);
   const [auth, setAuth] = useAuth();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowdata, setRowdata] = useState([]);
+
   const getOrders = async () => {
     try {
       const { data } = await axios.get(
@@ -47,17 +58,27 @@ const AdminOrders = () => {
       console.log(error);
     }
   };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(event.target.value);
+    setPage(0);
+  };
+
   return (
     <Layout title={"All Orders"}>
       <div className=" m-3 p-3">
-        <div className="row dashboard">
-          <div className="col-md-3">
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-12 lg:col-span-4 bg-white p-4 rounded-lg">
             <AdminMenu />
           </div>
-          <div className="col-md-9">
-            <h1 className="text-center">All orders</h1>
+          <div className="col-span-12 lg:col-span-8">
+            <h1 className="text-xl font-semibold">All orders</h1>
             <div>
-              {orders?.map((o, i) => {
+              {/* {orders?.map((o, i) => {
                 return (
                   <div className="border shadow">
                     <table className="table">
@@ -117,8 +138,161 @@ const AdminOrders = () => {
                       ))}
                     </div>
                   </div>
+
                 );
-              })}
+              })} */}
+              {
+                orders.length > 0 ? (   <Paper
+                  sx={{
+                    width: "100%",
+                    overflow: "hidden",
+                    marginTop: "2rem",
+                    borderRadius: "0.6rem",
+                  }}
+                >
+                  <TableContainer component={Paper} className="cardContent">
+                    <Table
+                      stickyHeader
+                      aria-label="sticky table"
+                      className="table"
+                    >
+                      <TableHead>
+                        <TableRow>
+                          <TableCell
+                            align="center"
+                            className=" !bg-gray-500 !text-white !font-semibold !text-base"
+                          >
+                            Sl.no
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            className=" !bg-gray-500 !text-white !font-semibold !text-base"
+                          >
+                            Status
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            className=" !bg-gray-500 !text-white !font-semibold !text-base"
+                          >
+                            Buyer
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            className=" !bg-gray-500 !text-white !font-semibold !text-base"
+                          >
+                            Product
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            className=" !bg-gray-500 !text-white !font-semibold !text-base"
+                          >
+                            Date
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            className=" !bg-gray-500 !text-white !font-semibold !text-base"
+                          >
+                            Payment
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            className=" !bg-gray-500 !text-white !font-semibold !text-base"
+                          >
+                            Quantity
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {orders
+                          .slice(
+                            page * rowsPerPage,
+                            page * rowsPerPage + rowsPerPage
+                          )
+                          .map((or, i) => (
+                            <TableRow
+                              key={or.name}
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell
+                                component="th"
+                                scope="row"
+                                align="center"
+                                className="!text-base"
+                              >
+                                {i + 1}
+                              </TableCell>
+                              <TableCell align="center" className="tableCell">
+                                <Select
+                                  bordered={false}
+                                  onChange={(value) =>
+                                    handleChange(or._id, value)
+                                  }
+                                  defaultValue={or?.status}
+                                >
+                                  {status.map((s, i) => (
+                                    <Option key={i} value={s}>
+                                      {s}
+                                    </Option>
+                                  ))}
+                                </Select>
+                              </TableCell>
+                              <TableCell align="center" className="tableCell">
+                                {or?.buyer?.name}
+                              </TableCell>
+                              <TableCell align="center" className="tableCell">
+                                {or?.products?.map((p)=> p.name)}
+                              </TableCell>
+                              <TableCell align="center" className="tableCell">
+                                {moment(or?.createdAt).fromNow()}
+                              </TableCell>
+                              <TableCell align="center" className="tableCell">
+                                {or?.payment.success ? "Success" : "Failed"}
+                              </TableCell>
+                              <TableCell align="center" className="tableCell">
+                                {or?.products?.length}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  {/* <div className="">
+                          {o?.products?.map((p, i) => (
+                            <div className="flex" key={p._id}>
+                              <div className="">
+                                <img
+                                  src={`${
+                                    import.meta.env.VITE_REACT_APP_API
+                                  }/api/v1/product/product-photo/${p._id}`}
+                                  className="rounded-lg h-24 w-24"
+                                  alt={p.name}
+                              
+                                />
+                              </div>
+                              <div className="col-md-4">
+                                <p>{p.name}</p>
+                                <p>{p.description.substring(0, 30)}</p>
+                                <p>Price : ₹ {p.price}</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div> */}
+                  <TablePagination
+                    rowsPerPageOptions={[5]}
+                    component="div"
+                    count={orders.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                  />
+                </Paper>):(<h2>No orders found</h2>)
+              }
+           
             </div>
           </div>
         </div>

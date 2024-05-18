@@ -47,22 +47,22 @@ const Profile = () => {
   };
   return (
     <Layout title={"User Profile - Ecommerce app"}>
-      <div className="container-fluid p-3 m-3">
-        <div className="row">
-          <div className="col-md-3">
+      <div className=" p-3 m-3">
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-12 lg:col-span-4 bg-white p-4 rounded-lg">
             <UserMenu />
           </div>
-          <div className="col-md-9">
-            <div className="form-container">
+          <div className="col-span-12 lg:col-span-8">
+            <div className="">
               <form onSubmit={handleSubmit}>
-                <h4 className="title">User Profile</h4>
+                <h4 className="text-xl font-semibold">User Profile</h4>
                 <div className="mb-3">
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="form-control"
-                    id="exampleInputName"
+                    className="bg-white border border-gray-300 text-gray-900  p-2.5 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full"
+                 
                     placeholder="Name"
                     
                     autoFocus
@@ -73,8 +73,8 @@ const Profile = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="form-control"
-                    id="exampleInputEmail"
+                    className="bg-white border border-gray-300 text-gray-900  p-2.5 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full"
+                 
                     placeholder="Email"
                     
                     disabled
@@ -85,8 +85,8 @@ const Profile = () => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="form-control"
-                    id="exampleInputPassword1"
+                    className="bg-white border border-gray-300 text-gray-900  p-2.5 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full"
+                   
                     placeholder="Password"
                     
                   />
@@ -96,8 +96,8 @@ const Profile = () => {
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="form-control"
-                    id="exampleInputPhone"
+                    className="bg-white border border-gray-300 text-gray-900  p-2.5 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full"
+                   
                     placeholder="Phone"
                     
                   />
@@ -107,13 +107,13 @@ const Profile = () => {
                     type="text"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="form-control"
-                    id="exampleInputAddress"
+                    className="bg-white border border-gray-300 text-gray-900  p-2.5 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full"
+                 
                     placeholder="Address"
                    
                   />
                 </div>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center">
                   Update
                 </button>
               </form>
