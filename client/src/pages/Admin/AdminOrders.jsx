@@ -244,7 +244,13 @@ const AdminOrders = () => {
                                 {or?.buyer?.name}
                               </TableCell>
                               <TableCell align="center" className="tableCell">
-                                {or?.products?.map((p)=> p.name)}
+                                {or?.products?.map((p,index)=> (
+                                   <span>
+                                   {" "}
+                                   {p.name}{" "}
+                                   {index !== or.products.length - 1 && ", "}
+                                 </span>
+                                ))}
                               </TableCell>
                               <TableCell align="center" className="tableCell">
                                 {moment(or?.createdAt).fromNow()}

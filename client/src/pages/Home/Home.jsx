@@ -121,7 +121,7 @@ const Home = () => {
   };
 
   const isInCart = (product) => {
-    return cart.some(item => item._id === product._id);
+    return cart.some((item) => item._id === product._id);
   };
   return (
     <Layout title={"All Products - Best offers"}>
@@ -133,7 +133,7 @@ const Home = () => {
               <Checkbox
                 key={c._id}
                 onChange={(e) => handleFilter(e.target.checked, c._id)}
-                style={{marginInlineStart:0}}
+                style={{ marginInlineStart: 0 }}
               >
                 {c.name}
               </Checkbox>
@@ -141,7 +141,10 @@ const Home = () => {
           </div>
           <h4 className="text-start mt-4">Filter By Price</h4>
           <div className="mt-3">
-            <Radio.Group className="flex flex-wrap gap-2 lg:flex-col" onChange={(e) => setRadio(e.target.value)}>
+            <Radio.Group
+              className="flex flex-wrap gap-2 lg:flex-col"
+              onChange={(e) => setRadio(e.target.value)}
+            >
               {Price?.map((p) => (
                 <div key={p._id}>
                   <Radio value={p.array}>{p.name}</Radio>
@@ -161,89 +164,133 @@ const Home = () => {
         <div className="mt-4  col-span-12 lg:col-span-10">
           {/* <h1 className="text-center">All Products</h1> */}
           <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-            {products?.map((p) => (
-              <div className="w-full p-4 bg-white border border-gray-200 rounded-md shadow" style={{ width: "18rem" }}>
-                <img
-                  src={`${
-                    import.meta.env.VITE_REACT_APP_API
-                  }/api/v1/product/product-photo/${p._id}`}
-                  className="h-72 hover:scale-90 transform 
-                  transition duration-500"
-                  alt={p.name}
-                />
-                <div className="">
-                  <div className="">
-                    <h5 className="text-xl font-semibold tracking-tight text-gray-900">{p.name}</h5>
-                    <p className="text-lg font-bold text-gray-700">
-                      {p.price.toLocaleString("en-IN", {
-                        style: "currency",
-                        currency: "INR",
-                      })}
-                    </p>
+            {loading ? (
+              <>
+                <div
+                  className="w-full p-4  animate-pulse"
+                  style={{ width: "18rem" }}
+                >
+                  <div className="h-72 bg-gray-300 rounded-md"></div>
+                  <div className="mt-2">
+                    <div className="h-6 bg-gray-300 mb-1 rounded-md"></div>
+                    <div className="h-5 bg-gray-300 mb-2 rounded-md"></div>
+                    <div className="h-4 bg-gray-300 w-1/2 rounded-md"></div>
                   </div>
-                  <p className="text-md  text-gray-500">{p.description.substring(0, 30)}</p>
-                  <div className="flex justify-between">
-                    <button
-                      className="text-white  bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ms-1"
-                      onClick={() => navigate(`/product/${p.slug}`)}
-                    >
-                      More Details
-                    </button>
-                    {/* <button
-                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ms-1"
-                      onClick={() => {
-                        setCart([...cart, p]);
-                        localStorage.setItem(
-                          "cart",
-                          JSON.stringify([...cart, p])
-                        );
-                        toast.success("Item added to cart");
-                      }}
-                    >
-                      Add to Cart
-                    </button> */}
-                    <button
-                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ms-1"
-                      onClick={() => {
-                        if (!isInCart(p)) {
-                          setCart([...cart, p]);
-                          localStorage.setItem(
-                            "cart",
-                            JSON.stringify([...cart, p])
-                          );
-                          toast.success("Item added to cart");
-                        } else {
-                          toast.error("Item already in cart");
-                        }
-                      }}
-                    >
-                      Add to Cart
-                    </button>
+                  <div className="mt-2 flex gap-2">
+                    <div className="h-10 w-1/2 bg-gray-300 rounded-md"></div>
+                    <div className="h-10 w-1/2 bg-gray-300 rounded-md"></div>
                   </div>
                 </div>
-              </div>
-            ))}
+                <div
+                  className="w-full p-4  animate-pulse"
+                  style={{ width: "18rem" }}
+                >
+                  <div className="h-72 bg-gray-300 rounded-md"></div>
+                  <div className="mt-2">
+                    <div className="h-6 bg-gray-300 mb-1 rounded-md"></div>
+                    <div className="h-5 bg-gray-300 mb-2 rounded-md"></div>
+                    <div className="h-4 bg-gray-300 w-1/2 rounded-md"></div>
+                  </div>
+                  <div className="mt-2 flex gap-2">
+                    <div className="h-10 w-1/2 bg-gray-300 rounded-md"></div>
+                    <div className="h-10 w-1/2 bg-gray-300 rounded-md"></div>
+                  </div>
+                </div>
+                <div
+                  className="w-full p-4  animate-pulse"
+                  style={{ width: "18rem" }}
+                >
+                  <div className="h-72 bg-gray-300 rounded-md"></div>
+                  <div className="mt-2">
+                    <div className="h-6 bg-gray-300 mb-1 rounded-md"></div>
+                    <div className="h-5 bg-gray-300 mb-2 rounded-md"></div>
+                    <div className="h-4 bg-gray-300 w-1/2 rounded-md"></div>
+                  </div>
+                  <div className="mt-2 flex gap-2">
+                    <div className="h-10 w-1/2 bg-gray-300 rounded-md"></div>
+                    <div className="h-10 w-1/2 bg-gray-300 rounded-md"></div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              products?.map((p) => (
+                <div
+                  key={p._id}
+                  className="w-full p-4 bg-white border border-gray-200 rounded-md shadow"
+                  style={{ width: "18rem" }}
+                >
+                  <img
+                    src={`${
+                      import.meta.env.VITE_REACT_APP_API
+                    }/api/v1/product/product-photo/${p._id}`}
+                    className="h-72 hover:scale-90 transform transition duration-500"
+                    alt={p.name}
+                  />
+                  <div className="">
+                    <div className="">
+                      <h5 className="text-xl font-semibold tracking-tight text-gray-900">
+                        {p.name}
+                      </h5>
+                      <p className="text-lg font-bold text-gray-700">
+                        {p.price.toLocaleString("en-IN", {
+                          style: "currency",
+                          currency: "INR",
+                        })}
+                      </p>
+                    </div>
+                    <p className="text-md text-gray-500">
+                      {p.description.substring(0, 30)}
+                    </p>
+                    <div className="flex justify-between">
+                      <button
+                        className="text-white bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ms-1"
+                        onClick={() => navigate(`/product/${p.slug}`)}
+                      >
+                        More Details
+                      </button>
+                      <button
+                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ms-1"
+                        onClick={() => {
+                          if (!isInCart(p)) {
+                            setCart([...cart, p]);
+                            localStorage.setItem(
+                              "cart",
+                              JSON.stringify([...cart, p])
+                            );
+                            toast.success("Item added to cart");
+                          } else {
+                            toast.error("Item already in cart");
+                          }
+                        }}
+                      >
+                        Add to Cart
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
 
           <div className="m-2 p-3">
-          {products && products.length < total && (
-            <button
-              className="btn loadmore"
-              onClick={(e) => {
-                e.preventDefault();
-                setPage(page + 1);
-              }}
-            >
-              {loading ? (
-                "Loading ...."
-              ) : (
-                <>
-                  {""}Loadmore <AiOutlineReload />
-                </>
-              )}
-            </button>
-          )}
-        </div>
+            {products && products.length < total && (
+              <button
+                className="btn loadmore"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setPage(page + 1);
+                }}
+              >
+                {loading ? (
+                  "Loading ...."
+                ) : (
+                  <>
+                    {""}Loadmore <AiOutlineReload />
+                  </>
+                )}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </Layout>
