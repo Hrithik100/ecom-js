@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 const Spinner = ({ path = "login" }) => {
@@ -18,13 +19,11 @@ const Spinner = ({ path = "login" }) => {
   return (
     <>
       <div
-        className="d-flex flex-column justify-content-center align-items-center"
+        className="flex flex-col justify-center items-center"
         style={{ height: "100vh" }}
       >
         <h1 className="Text-Center">redirecting to you in {count} second</h1>
-        <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
+        <CircularProgress />
       </div>
     </>
   );
