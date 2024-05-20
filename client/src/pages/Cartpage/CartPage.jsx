@@ -16,11 +16,10 @@ const CartPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-
   useEffect(() => {
-    const updatedCart = cart.map(item => ({
+    const updatedCart = cart.map((item) => ({
       ...item,
-      cartQuantity: item.cartQuantity || 1 // Initialize cartQuantity if not present
+      cartQuantity: item.cartQuantity || 1, // Initialize cartQuantity if not present
     }));
     setCart(updatedCart);
   }, []);
@@ -58,7 +57,8 @@ const CartPage = () => {
     try {
       let myCart = [...cart];
       let index = myCart.findIndex((item) => item._id === pid);
-      if (myCart[index].cartQuantity < myCart[index].quantity) { // Check against available quantity
+      if (myCart[index].cartQuantity < myCart[index].quantity) {
+        // Check against available quantity
         myCart[index].cartQuantity += 1;
         setCart(myCart);
         localStorage.setItem("cart", JSON.stringify(myCart));
@@ -147,7 +147,7 @@ const CartPage = () => {
         <div className=" mx-5">
           <div className="grid grid-cols-12 gap-6 lg:gap-9">
             <div className="col-span-12 lg:col-span-8 bg-white rounded-lg p-4">
-            <p className="text-base lg:text-xl font-bold">
+              <p className="text-base lg:text-xl font-bold">
                 {cart?.length
                   ? `You Have ${cart.length} items in your cart ${
                       auth?.token ? "" : "please login to checkout !"
@@ -170,29 +170,35 @@ const CartPage = () => {
                       />
                     </div>
                     <div className="">
-                      <p className="text-base font-semibold text-gray-700">{p.name}</p>
+                      <p className="text-base font-semibold text-gray-700">
+                        {p.name}
+                      </p>
                       <p className="hidden ">
                         {p.description.substring(0, 30)}
                       </p>
-                      <p className="text-base font-semibold text-gray-500">Price : ₹ {p.price}</p>
+                      <p className="text-base font-semibold text-gray-500">
+                        Price : ₹ {p.price}
+                      </p>
                     </div>
-                    <div className="flex items-center">
-                        <button
-                          className="px-2 py-1 bg-gray-200 text-gray-800 font-bold rounded-l"
-                          onClick={() => decrementQuantity(p._id)}
-                          // disabled={p.cartQuantity <= 1}
-                        >
-                          -
-                        </button>
-                        <span className="px-4 py-1 bg-gray-100 text-gray-800 font-semibold">{p.cartQuantity}</span>
-                        <button
-                          className="px-2 py-1 bg-gray-200 text-gray-800 font-bold rounded-r disabled:cursor-not-allowed"
-                          onClick={() => incrementQuantity(p._id)}
-                          disabled={p.cartQuantity >= p.quantity} // Check against available quantity
-                        >
-                          +
-                        </button>
-                      </div>
+                  </div>
+                  <div className="flex items-center">
+                    <button
+                      className="px-2 py-1 bg-gray-200 text-gray-800 font-bold rounded-l"
+                      onClick={() => decrementQuantity(p._id)}
+                      // disabled={p.cartQuantity <= 1}
+                    >
+                      -
+                    </button>
+                    <span className="px-4 py-1 bg-gray-100 text-gray-800 text-sm font-semibold">
+                      {p.cartQuantity}
+                    </span>
+                    <button
+                      className="px-2 py-1 bg-gray-200 text-gray-800 font-bold rounded-r disabled:cursor-not-allowed"
+                      onClick={() => incrementQuantity(p._id)}
+                      disabled={p.cartQuantity >= p.quantity} // Check against available quantity
+                    >
+                      +
+                    </button>
                   </div>
                   <div className=" pl-3">
                     <button
@@ -208,14 +214,20 @@ const CartPage = () => {
             </div>
             <div className="col-span-12 lg:col-span-4 bg-white p-4 rounded-lg">
               <h2 className="text-2xl font-semibold">Cart Summary</h2>
-              <p className="text-lg font-semibold">Total | Checkout | Payment</p>
-          
+              <p className="text-lg font-semibold">
+                Total | Checkout | Payment
+              </p>
+
               <div className="p-4 bg-[#C4DFDF] rounded-lg">
-                <h4 className="text-base font-semibold">Total : {totalPrice()} </h4>
+                <h4 className="text-base font-semibold">
+                  Total : {totalPrice()}{" "}
+                </h4>
                 {auth?.user?.address ? (
                   <>
                     <div className="mb-3">
-                      <h4 className="text-base font-semibold">Current Address: {auth?.user?.address}</h4>
+                      <h4 className="text-base font-semibold">
+                        Current Address: {auth?.user?.address}
+                      </h4>
                       <button
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                         onClick={() => navigate("/dashboard/user/profile")}
